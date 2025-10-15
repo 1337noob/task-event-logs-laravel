@@ -1,0 +1,208 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Logs API",
+        "description": "Logs API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8001",
+            "description": "Logs API"
+        }
+    ],
+    "paths": {
+        "/api/logs": {
+            "get": {
+                "tags": [
+                    "Logs"
+                ],
+                "summary": "Get logs",
+                "operationId": "07258c00ce1b2cbc7c7151a7cc8ca986",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "event",
+                        "in": "query",
+                        "description": "Event",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "created"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "User id",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "0199ed04-f3ca-7355-a82e-e53bd1528cc1"
+                        }
+                    },
+                    {
+                        "name": "from_date",
+                        "in": "query",
+                        "description": "From date",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2025-10-15"
+                        }
+                    },
+                    {
+                        "name": "to_date",
+                        "in": "query",
+                        "description": "To date",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2025-10-16"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LogListResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "LogListResponse": {
+                "properties": {
+                    "data": {
+                        "properties": {
+                            "logs": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Log"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "meta": {
+                        "properties": {
+                            "current_page": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "per_page": {
+                                "type": "integer",
+                                "example": 10
+                            },
+                            "total": {
+                                "type": "integer",
+                                "example": 25
+                            },
+                            "last_page": {
+                                "type": "integer",
+                                "example": 3
+                            },
+                            "from": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "to": {
+                                "type": "integer",
+                                "example": 10
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "links": {
+                        "properties": {
+                            "first": {
+                                "type": "string",
+                                "example": "http://localhost:8000/api/tasks?page=1"
+                            },
+                            "last": {
+                                "type": "string",
+                                "example": "http://localhost:8000/api/tasks?page=3"
+                            },
+                            "prev": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "next": {
+                                "type": "string",
+                                "example": "http://localhost:8000/api/tasks?page=2"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "Log": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "0199e304-798d-72ad-8f41-80bdc6de0d90"
+                    },
+                    "event": {
+                        "type": "string",
+                        "example": "TaskCreated"
+                    },
+                    "task_id": {
+                        "type": "string",
+                        "example": "0199dd17-88ea-7037-ba2d-cf60e784f928"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "example": "0199dd17-88ea-7037-ba2d-cf60e784f928"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-10-14T13:59:05.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-10-14T13:59:05.000000Z"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Logs",
+            "description": "Logs"
+        }
+    ]
+}
